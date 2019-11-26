@@ -6,7 +6,7 @@ MIT License
 ## Install
 
 ```bash
-npm i -S dyangjs-property-decorator
+npm i -D dyangjs-property-decorator
 ```
 ## Usage
 
