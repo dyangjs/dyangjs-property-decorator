@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "outDir":"lib/",
+        "allowSyntheticDefaultImports": true,
+        "module": "commonjs",
+        "removeComments": true,      
+        "sourceMap": false,
+        "declaration":true,
+        "strict": true,
+        "target": "es5",
+        "noImplicitAny":false,
+        "moduleResolution": "node",
+        "lib": [
+            "dom",
+            "es5",
+            "es2015"
+        ],
+        "baseUrl": "./src",
+        "typeRoots": [
+          "node_modules/@types"
+        ]
+    },
+    "include": [
+        "./src/**/*"
+    ],
+    "exclude": [
+      "./node_modules"
+    ]
+}
