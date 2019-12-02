@@ -12,7 +12,18 @@ npm i -D dyangjs-property-decorator
 
 There are several decorators:
 - [`@Prop`](#Prop)
+- [`@Emit`](#Emit)
+- [`@Watch`](#Watch)
+- [`@Provide`](#Provide)
+- [`@Inject`](#Inject)
+- [`@Prop`](#Prop)
 - [`@Component`](#Component)
+
+There are several class:
+- [`@VueComponent`](#VueComponent)
+
+There are several implements:
+- [`@ComponentExtend`](#ComponentExtend)
 
 ## See also
 
@@ -42,6 +53,37 @@ class YourComponent extends VueComponent implements ComponentExtend{
         console.log('Click Method!!!');
     }
 
+    /** 触发input事件 */
+    @Emit('input')
+    EmitInput(value:boolean){
+        return value;
+    }
+    /** 触发change事件 */
+    @Emit('change')
+    EmitChange(value:any){
+        return value;
+    }
+
+    @Watch("value")
+    changeValue(value,valu1){
+        console.log(value,valu1)
+    }
+
+    @Provide()
+    test1(){
+        return {
+            'Form':this.value
+        }
+    }
+
+    @Inject({
+        from:"Form",
+        default(){
+            return undefined
+        }
+    })
+    Form:any
+
     render(h){
         return {
             <button onClick={this.ClickMethod}>Click Me!</button>
@@ -67,6 +109,22 @@ export default {
             return {
                 testValue:1
             }
+        }
+    },
+    watch:{
+        value:function changeValue(value,valu1){
+            console.log(value,valu1)
+        }
+    },
+    provide(){
+        return {
+            'Form':this.value
+        }
+    },
+    inject:{
+        from:"Form",
+        default(){
+            return undefined
         }
     },
     methdos:{
