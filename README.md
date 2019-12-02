@@ -20,10 +20,10 @@ There are several decorators:
 - [`@Component`](#Component)
 
 There are several class:
-- [`@VueComponent`](#VueComponent)
+- [`VueComponent`](#VueComponent)
 
 There are several implements:
-- [`@ComponentExtend`](#ComponentExtend)
+- [`ComponentExtend`](#ComponentExtend)
 
 ## See also
 
