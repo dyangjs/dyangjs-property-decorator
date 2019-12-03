@@ -47,7 +47,8 @@ export class VueComponent {
     $listeners?: Record<string, Function | Function[]>;
     $router?:VueRouter
     $route?:Route
-    $emit?:(event:string,args:any) => void
+    $emit?:(event:string,args?:any) => void
+    $nextTick?:(params:Function) => void
 }
 
 /** Props装饰器 */
@@ -66,11 +67,18 @@ export function Component(options?:any){
     return (target:any) => {
         if (options === void 0) { options = {}; }
         options.name = options.name || target._componentTag || target.name;
+        let paramsObjs = new Object();
+        const baseParams = new target();
+        const dataKeys = Object.keys(baseParams);
+        dataKeys.map(key => {
+            paramsObjs[key] = baseParams[key]
+        })
+        target.prototype.params = paramsObjs;
         var proto = target.prototype;
         const keys = ['props','provide','inject','watch'];
         let baseObjs:any = new Object();
         keys.map(key=>{
-            baseObjs[key] = proto[key]
+            proto[key] ? baseObjs[key] = proto[key] : ''
         });
         const Hooks = [
             'data',
@@ -101,15 +109,12 @@ export function Component(options?:any){
                 // methods
                 if (typeof descriptor.value === 'function') {
                     (options.methods || (options.methods = {}))[key] = descriptor.value;
-                }
-                else {
-                    // typescript decorated data
-                    (options.mixins || (options.mixins = [])).push({
-                        data: function () {
-                            let _a:any;
-                            return _a = {}, _a[key] = descriptor.value, _a;
-                        }
-                    });
+                } else if (key === "params") {
+                    options.data = function() {
+                        let _a:any;
+                        _a = {}, _a = Merge(_a, descriptor.value), _a;
+                        return _a;
+                    }
                 }
             }
             else if (descriptor.get || descriptor.set) {

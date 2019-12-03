@@ -1,6 +1,6 @@
 {
     "name": "dyangjs-property-decorator",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "Vue Component Tsx assignment Tools",
     "main": "lib/index.js",
     "dependencies": {

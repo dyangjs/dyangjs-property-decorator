@@ -29,9 +29,10 @@ There are several implements:
 
 ```tsx
 import VueComponent,{ ComponentExtend, Component, Props } from 'dyangjs-property-decorator';
-
+import ChildrenComponentName from 'xx/xxx';
 @Component({
-    name:"YourComponentName"
+    name:"YourComponentName",
+    components:{ ChildrenComponentName }
 })
 class YourComponent extends VueComponent implements ComponentExtend{
     /** Props */
@@ -76,6 +77,9 @@ class YourComponent extends VueComponent implements ComponentExtend{
         }
     }
 
+    /** Vue Dates*/
+    params:string = 'Test Text';
+
     @Inject({
         from:"Form",
         default(){
@@ -86,7 +90,10 @@ class YourComponent extends VueComponent implements ComponentExtend{
 
     render(h){
         return {
-            <button onClick={this.ClickMethod}>Click Me!</button>
+            <div class="example">
+                h("ChildrenComponentName",{},this.$slots.default)
+                <button onClick={this.ClickMethod}>Click Me!</button>
+            </div>
         }
     }
 }
