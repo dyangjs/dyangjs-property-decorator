@@ -51,8 +51,14 @@ export class VueComponent {
     $nextTick?:(params:Function) => void
 }
 
+export interface PropsOption{
+    default?:any
+    type?:Boolean | Number | Object | Array<any> | String
+    validator?:(value:any) => void
+}
+
 /** Props装饰器 */
-export function Props(options?: any) {
+export function Props(options?: PropsOption) {
     if (options === void 0) { options = {}; }
     return function (target:any, key:string) {
         let data:any = new Object();
@@ -94,7 +100,8 @@ export function Component(options?:any){
             'deactivated',
             'render',
             'errorCaptured',
-            'serverPrefetch' // 2.6
+            'serverPrefetch', // 2.6
+            'install'
         ];
         Object.getOwnPropertyNames(proto).forEach(function (key) {            
             if (key === 'constructor') {
@@ -217,6 +224,7 @@ export interface ComponentExtend{
     errorCaptured?:() => void
     /** Vue version > 2.6 */
     serverPrefetch?:() => void
+    install?:(param:Vue)=>void
 }
 
 export default VueComponent;
